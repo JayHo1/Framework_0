@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html>
-	<head ng-app="myApp">
+	<head>
 		<title>NODE APP</title>
-
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-			<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-		<script src="public/javascripts/script.js"></script>
+		<link href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css', rel='stylesheet', media='screen'>
+		<link rel="stylesheet" type="text/css" href="public/stylesheets/style.css">
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	</head>
 	<body ng-controller="mainController">
 
 		<header>
-			<nav class="navbar navbar-default">
 			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/">Angular Routing Example</a>
-				</div>
-				<ul>
-					<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
-					<li><a href="api/about"><i class="fa fa-shield"></i> About</a></li>
-					<li><a href="api/contact"><i class="fa fa-comment"></i> Contact</a></li>
-				</ul>
+				<h1>Login Page</h1>
+				<p>Hello World</p>
+				<br />
+				<form action="/login" methode="POST" style="max-width: 300px;">
+					<div class="form-group">
+					<input class="form-control" type="text" name='username' placeholder='Enter Username'>
+					<br />
+					<input class="form-control", type='text' name='password' placeholder='Password'>
+					&nbsp;
+					<br />
+					<a href="/"><button type="submit">SUBMIT</button></a>
+					</div>
+				</form>
 			</div>
-			</nav>
 		</header>
 
-		<div id="main">
-			{{ message }}
-			<div ng-view>
-				
-			</div>
-		</div>
 	</body>
 
 </html>

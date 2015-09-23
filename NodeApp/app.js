@@ -46,9 +46,15 @@ var routes 	= require('./routes/index');
 var users 	= require('./routes/users');
 
 
-app.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname + '/views/index.html'));
-});
+// app.get('/', function(req, res) {
+// 	res.sendFile(path.join(__dirname + '/views/index.html'));
+// });
+
+app.set('views', path.join(__dirname, 'views'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
