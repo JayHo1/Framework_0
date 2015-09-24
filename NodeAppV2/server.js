@@ -72,7 +72,7 @@ app.get('/logout', function(req, res) {
 var port = process.env.PORT || 3000
 
 app.listen(port, function () {
-	console.log('Server Stating');
+	console.log('Server Stating at http://localhost:' + port);
 });
 
 //***=================   DEBUG   =================***//
