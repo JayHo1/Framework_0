@@ -1,6 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: url("/images/bg-login.jpg") center center  no-repeat fixed;
+
 }
 
 a {
@@ -8,5 +10,6 @@ a {
 }
 
 body h1 {
-	color: #6b5094;
+	color: white;
+	font-family: "Lucida Grande";
 }

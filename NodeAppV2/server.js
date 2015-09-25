@@ -1,19 +1,31 @@
 
 //***=================   SETUP   =================***//
 
+
+var fs 				= require('fs');
+var https			= require('https');
 var express 		= require('express');
-var app 			= express();
 var bodyParser 		= require('body-parser');
 var cookieParser 	= require('cookie-parser');
 var expressSession	= require('express-session');
 
+var app 			= express();
+
 app.set('view engine', 'ejs');
 
+
+//***=================   SERVER HTTPS  =================***//
+
+// var serverHttps		= https.createServer({ 
+// 	cert: fs.readFileSync(__dirname + '/ssl/server.crt'),
+// 	key: fs.readFileSync(__dirname + '/ssl/server.key'),
+// }, app);
 
 //***=================   AUTHENTICATION   =================***//
 
 var passport 		= require('passport');
 var passportLocal 	= require('passport-local');
+var passportHttp 	= require('passport-http');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -26,13 +38,18 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new passportLocal.Strategy(function(username, password, done) {
+passport.use(new passportLocal.Strategy(verifyCredentials));
+
+passport.use(new passportHttp.BasicStrategy(verifyCredentials));
+
+
+function verifyCredentials(username, password, done) {
 	if (username === password) {
 		done(null, { id: username, name: username });
 	} else {
 		done(null, null);
 	};
-}));
+};
 
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
@@ -40,7 +57,15 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
 	done(null, { id: id, name: id });
-})
+});
+
+function ensureAuthenticated(req, res, next) {
+	if(req.isAuthenticated()) {
+		next();
+	} else {
+		res.send(403);
+	}
+};
 
 //***=================   ROUTES   =================***//
 
@@ -66,13 +91,22 @@ app.get('/logout', function(req, res) {
 	res.redirect('/login');
 });
 
+app.use('/api', passport.authenticate('basic', { session: false }));
+
+app.get('/api/data', ensureAuthenticated, function(req, res) {
+	res.json([
+		{ value: 'foo' },
+		{ value: 'bar' },
+		{ value: 'baz' },
+	]);
+})
 
 //***=================   PORT   =================***//
 
 var port = process.env.PORT || 3000
 
 app.listen(port, function () {
-	console.log('Server Stating at http://localhost:' + port);
+	console.log('http://127.0.0.1:' + port + '/');
 });
 
 //***=================   DEBUG   =================***//
