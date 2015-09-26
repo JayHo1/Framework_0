@@ -3,7 +3,6 @@
 module.exports = function(app, passport) {
 
 	//***=================   HOME PAGE   =================***//
-
 	app.get('/', function(req, res) {
 		res.render('index', {
 			isAuthenticated: req.isAuthenticated(),
@@ -13,9 +12,15 @@ module.exports = function(app, passport) {
 
 	//***=================   LOGIN PAGE   =================***//
 
+
 	app.get('/login', function(req, res) {
-		res.render('login', { message: req.flash('loginMessage') });
+		res.render('login', {
+			isAuthenticated: req.isAuthenticated(),
+			message: req.flash('loginMessage'),
+			user: req.user
+		});
 	});
+
 
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
@@ -51,7 +56,8 @@ module.exports = function(app, passport) {
     });
 
 
-	app.get('/api/me', passport.authenticate('basic', { session: false }), ensureAuthenticated, function(req, res) {
+	app.get('/api/me', passport.authenticate('basic', { session: false }), 
+		ensureAuthenticated, function(req, res) {
 		res.json([
 			{ value: 'foo' },
 			{ value: 'bar' },

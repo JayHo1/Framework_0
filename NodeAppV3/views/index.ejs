@@ -3,24 +3,44 @@
 	<head>
 		<title>Framework J-G</title>
 
-		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+		<script type="text/javascript" src="javascripts/script.js"></script>
 	</head>
 	<body>
-		<header>
-		<div class="home-container">
-			<div class="home navbar-header">
-				<a class="home-navbar-brand" href="/">
-					<img src="logo." alt="J-G" />
-				</a>
-			</div>
-			<div class="home navbar-collapse collapse" style="max-height: 422px;">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active btn btn-default"><a href="/login">Login</a></li>
-					<li class="btn btn-primary"><a href="/signup"></a>Sign Up</li>
-				</ul>
-			</div>
-		</div>
+		<header id="home-header">
+			<nav class="home-nav">
+				<div class="home navbar-nav">
+					<a class="home-navbar-brand" href="/">
+						<img src="images/logo.png" alt="J-G" />
+					</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+					<% if (!isAuthenticated) { %>
+						<li><a class="navbar-menu" href="/login">Login</a></li>
+						<li><a class="navbar-menu" href="/signup">Sign Up</a></li>
+					<% }else { %>
+						<li><a class="navbar-menu" href="/logout">Logout</a></li>
+						<li><a class="navbar-menu" href="/profile">Profile</a></li>
+					<%  } %>
+					</ul>
+				</div>
+			</nav>
 		</header>
+		<section class="home-section container">
+			<div>
+				<center><h1>Apple & Credit Card</h1></center>
+			</div>
+
+			<article class="home-article">
+				<p> Apple products is expensive but they give us satisfaction like Jay is very shitting but he gives that lazy guys named Gaetan a good code !. <br />So don't blame & Keep cool</p>
+			</article>
+		</section>
+		<section class="home-features container">
+			<div class="home-features-button">
+				<a href="/features">Features</a>
+			</div>
+		</section>
 	</body>
 </html>
