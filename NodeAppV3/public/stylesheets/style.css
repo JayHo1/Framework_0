@@ -1,16 +1,17 @@
 /***   Header   ***/
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,200,100,800);
-body {
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+#index-page {
 	width: 100%;
-	height: 1200px;
+	height: 1300px;
 	background-image: url("../images/bg_header.jpg");
 	background-position: center;
 	background-size: 100% 1300px;
 	background-repeat: no-repeat;
 }
 
-/***   Navbar   ***/
+/***   Navbar-index   ***/
 
 .home-nav {
 	width: auto;
@@ -122,4 +123,358 @@ body {
 	font-size: 18px;
 	text-decoration: none;
 	color: white;
+}
+
+/***   Navbar Admin   ***/
+
+.navbar-menu-admin {
+	text-align: center;
+	margin-top: 10px;
+	width: 150px;
+	height: 45px;
+	border: 2px solid #404040;
+	border-radius: 10px;
+	margin-right: 14px;
+	margin-left: 14px;
+}
+
+.nav-menu-admin li a{
+	transition: all 0.5s ease;
+	color: #404040;
+	font-family: 'Raleway', sans-serif;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.nav-menu-admin li a:hover {
+	transition: all 0.5s ease;
+	color: white;
+	font-family: 'Raleway', sans-serif;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: rgba(44, 62, 80, 0.6);
+}
+
+/***   Home Section   ***/
+
+.home-section {
+	margin-top: 200px;
+	width: 800px;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 300px;
+	border-radius: 5px;
+}
+
+.home-section h1 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
+	font-size: 60px;
+	text-transform: uppercase;
+	color: white;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+.home-article {
+	width: 400px;
+	text-align: center;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 400;
+	font-size: 17px;
+	margin-right: auto;
+	margin-left: auto;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.home-features {
+	text-align: center;
+}
+
+.home-features-button {
+	transition: all 0.5s ease;
+	background-color: #22313F;
+	margin-top: 40px;
+	margin-right: auto;
+	margin-left: auto;
+	width: 160px;
+	height: 45px;
+	border: 2px solid;
+	border-radius: 6px;
+}
+
+.home-features-button:hover {
+	background-color: rgba(34, 49, 63, 0.1);	
+}
+
+.home-features a:hover {
+	color: black;
+}
+
+.home-features a {
+	position: relative;
+	top: 8px;
+	text-transform: uppercase;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	font-size: 18px;
+	text-decoration: none;
+	color: white;
+}
+
+/*******  Contact Section ******/
+
+#contact-page {
+
+	width: 100%;
+	background-image: url("../images/bg_contact_page.jpg");
+	background-position: cover;
+	background-repeat: no-repeat;
+}
+
+#contact-page hr {
+	margin-top: 5px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    white;
+}
+
+textarea:focus, input:focus{
+	width: 500px;
+    outline: 0;
+}
+
+.contact-form-input {
+	margin-top: 150px;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5px; 
+}
+
+.contact-form-control {
+	background: none;
+	border: none;
+}
+
+.contact-input {
+	font-family: 'Raleway', sans-serif;
+	font-weight: lighter;
+	font-size: 30px;
+	color: white;
+	margin-top: 30px;
+}
+
+.contact-message-input {
+	height: 300px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: lighter;
+	font-size: 30px;
+	color: white;
+}
+
+.contact-submit {
+	height: 60px;
+}
+
+button {
+	border: none;
+	background: none;
+	outline: 0;
+}
+
+.contact-submit-button {
+	transition: all 0.5s ease-out;
+	margin-top: 10px;
+	width: 100px;
+	height: 30px;
+	background-color: #26A65B;
+	border-radius: 1px;
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: lighter;
+	text-transform: uppercase;
+}
+
+.contact-submit-button:hover {
+	margin-top: 10px;
+	width: 100px;
+	height: 30px;
+	background-color: #EF4836;
+	border-radius: 1px;
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: lighter;
+	text-transform: uppercase;
+}
+
+/***   Admin Section   ***/
+
+#admin-page {
+	width: 100%;
+	background-image: url("../images/bg_admin_page.jpg");
+	background-position: cover;
+	background-repeat: no-repeat;
+}
+
+.admin-text-area {
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-top: 100px;
+	border-radius: 5px;
+}
+
+.admin-text-area h1 {
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+}
+
+.admin-text-stat-user {
+	text-align: center;
+	background-color: rgba(137, 196, 244, 0.9);
+	box-shadow: 5px 5px 5px black;
+
+}
+
+.admin-text-stat-user h4 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	color: black;
+}
+
+
+/***   Admin Section List User  ***/
+
+.admin-text-list-user {
+	margin-top: 30px;
+}
+
+.admin-text-list-user th {
+	text-align: center;
+}
+
+.admin-text-list-user td {
+	text-align: center;
+}
+
+.admin-text-list-user tr {
+	color: white;
+	font-family: 'Raleway';
+	font-weight: lighter;
+}
+
+/*******  Donut Chart ******/
+
+.dashboard-item{
+    position: relative;
+    float: left;
+}
+
+.dashboard-item h2 {
+    text-align:center;
+    position: absolute;
+    line-height: 125px;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400px;
+    color: white;
+}
+
+.admin-copyright-footer {
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+hr {
+	margin-bottom: 10px;
+}
+
+.copyright-text p {
+	float: right;
+	margin-right: 10px;
+	color: white;
+	font-family: 'Raleway', sans-serif;
+}
+
+/*** sense of rotation ***/
+svg {
+   -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+/*** part of circle ***/
+
+.circle_animation_user {
+  stroke-dasharray: 500; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 640;
+}
+
+/*** time of transition ***/
+
+.admin-dashboard-area .circle_animation_admin {
+    -webkit-animation: html 2s ease-out forwards;
+    animation: html 2s ease-out forwards;
+}
+
+.admin-dashboard-area .circle_animation_admin {
+    -webkit-animation: html 2s ease-out forwards;
+    animation: css 2s ease-out forwards;
+}
+
+.circle_animation_admin {
+  stroke-dasharray:  300; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 500;
+}
+
+.admin-dashboard-area .circle_animation_user {
+    -webkit-animation: html 2s ease-out forwards;
+    animation: html 2s ease-out forwards;
+}
+
+.admin-dashboard-area .circle_animation_user {
+    -webkit-animation: html 2s ease-out forwards;
+    animation: css 2s ease-out forwards;
+}
+
+.circle_animation_troll {
+  stroke-dasharray: 600; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 500;
+}
+
+.admin-dashboard-area .circle_animation_troll {
+    -webkit-animation: html 3s ease-out forwards;
+    animation: html 3s ease-out forwards;
+}
+
+.admin-dashboard-area .circle_animation_troll {
+    -webkit-animation: html 3s ease-out forwards;
+    animation: css 3s ease-out forwards;
+}
+
+@-webkit-keyframes html {
+  to {
+    stroke-dashoffset: 80; /* 50% would be 220 (half the initial value specified above) */
+  }
+}
+
+@keyframes html {
+  to {
+    stroke-dashoffset: 80;
+  }
+}
+
+@-webkit-keyframes css {
+  to {
+    stroke-dashoffset: 160;
+  }
+}
+
+@keyframes css {
+  to {
+    stroke-dashoffset: 160;
+  }
 }

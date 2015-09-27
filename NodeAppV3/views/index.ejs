@@ -7,27 +7,8 @@
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 		<script type="text/javascript" src="javascripts/script.js"></script>
 	</head>
-	<body>
-		<header id="home-header">
-			<nav class="home-nav">
-				<div class="home navbar-nav">
-					<a class="home-navbar-brand" href="/">
-						<img src="images/logo.png" alt="J-G" />
-					</a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-					<% if (!isAuthenticated) { %>
-						<li><a class="navbar-menu" href="/login">Login</a></li>
-						<li><a class="navbar-menu" href="/signup">Sign Up</a></li>
-					<% }else { %>
-						<li><a class="navbar-menu" href="/logout">Logout</a></li>
-						<li><a class="navbar-menu" href="/profile">Profile</a></li>
-					<%  } %>
-					</ul>
-				</div>
-			</nav>
-		</header>
+	<body id="index-page">
+		<% include header_navbar.ejs %>
 		<section class="home-section container">
 			<div>
 				<center><h1>Apple & Credit Card</h1></center>

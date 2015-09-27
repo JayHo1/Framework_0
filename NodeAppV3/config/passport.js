@@ -3,9 +3,9 @@
 
 var localStrategy 	= require('passport-local').Strategy;
 var passportHttp 	= require('passport-http');
-var User 			= require('../routes/users');
+var User 			= require('./models/users');
 
-module.exports = function(passport) {
+module.exports = function(passport, app) {
 
 	passport.serializeUser(function(user, done) {
 	done(null, user.id);
@@ -29,7 +29,6 @@ module.exports = function(passport) {
 		function(req, email, password, done) {
 			process.nextTick(function() {
 				User.findOne({ 'local.email': email }, function(err, user) {
-
 					if (err)
 						return done(err);
 					if (user) {
@@ -40,6 +39,15 @@ module.exports = function(passport) {
 
 						newUser.local.email = email;
 						newUser.local.password = newUser.generateHash(password);
+
+						newUser.info_user.firstname = req.body.firstname;
+						newUser.info_user.lastname = req.body.lastName;
+						newUser.info_user.birthday = req.body.bDay;
+
+						newUser.permissions.name = "troll";
+						newUser.permissions.super_saiyen = 0;
+						newUser.permissions.ninja = 0;
+						newUser.permissions.pathetic_human = 1;
 
 						newUser.save(function(err) {
 							if (err) throw err;
@@ -90,16 +98,6 @@ module.exports = function(passport) {
 			});
 		}
 	));
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Admin Area</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+	</head>
+	<body id="admin-page">
+		<% include header_navbar_admin %>
+		<section class="admin-area">
+			<div class="admin-title">
+				<div class="row admin-text-area">
+					<div class="col-lg-5 col-lg-offset-1">
+						<h1>Admin Area</h1>
+						<hr width="100%">
+						<div class="row admin-text-stat-area">
+							<div class="col-lg-4 col-lg-offset-1 admin-text-stat-user">
+								<h3><%= nbUser %></h3>
+								<h4>Users</h4>
+							</div>
+							<div class="col-lg-4 col-lg-offset-2 admin-text-stat-user"> 
+								<h3>3</h3>
+								<h4>Admin</h4>
+							</div>
+						</div>
+						<div class="admin-text-list-user">
+							<table style="width:100%">
+								<tr>
+									<th>Email</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+								</tr>
+								<tr>
+									<td><%= account[0][0] %></td>
+									<td><%= account[0][1] %></td> 
+									<td><%= account[0][2] %></td>
+								</tr>
+								<tr>
+							   		<td><%= account[1][0] %></td>
+									<td><%= account[1][1] %></td> 
+									<td><%= account[1][2] %></td>
+								</tr>
+								<tr>
+									<td><%= account[2][0] %></td>
+									<td><%= account[2][1] %></td> 
+									<td><%= account[2][2] %></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="col-lg-4 col-lg-offset-2">
+						<h1>Dashboard</h1>
+						<hr width="100%">
+						<div class=" col-lg-offset-2 admin-dashboard-area dashboard-item">
+						    <h2>User</h2>
+						    <svg width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+						     <g>
+						      <title>Layer 1</title>
+						      <circle id="circle" class="circle_animation_user" r="69.85699" cy="81" cx="81" stroke-width="18" stroke="#00B16A" fill="none"/>
+						     </g>
+						    </svg>
+						</div>
+						<br />
+						<div class="col-lg-offset-5 admin-dashboard-area dashboard-item">
+						    <h2>Admin</h2>
+						    <svg width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+						     <g>
+						      <title>Layer 2</title>
+						      <circle id="circle" class="circle_animation_admin" r="69.85699" cy="81" cx="81" stroke-width="18" stroke="#F9690E" fill="none"/>
+						     </g>
+						    </svg>
+						</div>
+						<br />
+						<div class="col-lg-offset-2 admin-dashboard-area dashboard-item">
+						    <h2>Troll</h2>
+						    <svg width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+						     <g>
+						      <title>Layer 3</title>
+						      <circle id="circle" class="circle_animation_troll" r="69.85699" cy="81" cx="81" stroke-width="18" stroke="#446CB3" fill="none"/>
+						     </g>
+						    </svg>
+						</div>
+					</div>
+					<div class="col-lg-10 col-lg-offset-1 admin-copyright-footer">
+						<hr width="100%">
+						<div class="copyright-text">
+							<p>© 2015 Jay HO, Inc.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

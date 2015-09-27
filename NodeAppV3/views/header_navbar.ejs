@@ -1,0 +1,25 @@
+<header id="home-header">
+	<nav class="home-nav">
+		<div class="home navbar-nav">
+			<a class="home-navbar-brand" href="/">
+				<img src="images/logo.png" alt="J-G" />
+			</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+			<% if (!isAuthenticated) { %>
+				<li><a class="navbar-menu" href="/login">Login</a></li>
+				<li><a class="navbar-menu" href="/signup">Sign Up</a></li>
+				<li><a class="navbar-menu" href="/contact">Contact</a></li>
+			<% }else { %>
+				<li><a class="navbar-menu" href="/logout">Logout</a></li>
+				<li><a class="navbar-menu" href="/profile">Profile</a></li>
+				<li><a class="navbar-menu" href="/contact">Contact</a></li>
+				<% if (user.permissions.super_saiyen) { %>
+					<li><a class="navbar-menu" href="/admin">Super Admin</a></li>
+				<% } %>
+			<%  } %>
+			</ul>
+		</div>
+	</nav>
+</header>
