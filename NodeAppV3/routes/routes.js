@@ -2,6 +2,7 @@
 // configuration routes
 module.exports = function(app, passport, mongoose) {
 
+	var nbAccount = require('../config/models/users');
 	//***=================   HOME PAGE   =================***//
 	app.get('/', function(req, res) {
 		res.render('index', {
@@ -47,27 +48,45 @@ module.exports = function(app, passport, mongoose) {
     	failureFlash: true
     }));
 
-    //***=================   PROFILE   =================***//
+    //***=================   UPDATE PAGE   =================***//
 
-    app.get('/profile', ensureAuthenticated, function(req, res) {
-    	res.render('profile', {
-    		user: req.user
-    	});
-    });
+	app.get('/admin/user/:user', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
+		nbAccount.findOne({'_id': req.params.user}, function(err, data){
+			if (err) throw err;
+			console.log(data.info_user.lastname);
+			res.render('admin-edit.ejs', {
+				isAuthenticated: req.isAuthenticated(),
+				user: req.user, 
+				firstname: data.info_user.firstname,
+				lastname: data.info_user.lastname,
+			});
+		});
+	});
 
-
-	app.get('/api/me', passport.authenticate('basic', { session: false }), 
-		ensureAuthenticated, function(req, res) {
-		res.json([
-			{ value: 'foo' },
-			{ value: 'bar' },
-			{ value: 'baz' },
-		]);
+	app.post('/admin/user/:user', ensureAuthenticated, ensureAdminAuthenticated, function (req, res) {
+		nbAccount.update({_id: req.params.user}, { $set: { info_user: { firstname: req.body.firstname, lastname: req.body.lastname }} },  function (err) {
+		 if (err) { 
+		    console.log('update error');
+		 }
+		 else
+		 {
+		  	console.log('Pseudos modifiés !');
+		  	console.log(req);
+		  	res.render('profile', {
+		  		isAuthenticated: req.isAuthenticated(),
+		  		user: req.user,
+		  	});
+		  }
+		});
 	});
 
 	//***=================   PROFILE   =================***//
 
-	var nbAccount = require('../config/models/users');
+	app.get('/profile', ensureAuthenticated, function(req, res) {
+    	res.render('profile', {
+    		user: req.user
+    	});
+    });
 
 	function account(callback) {
 		nbAccount.count(function(err, nb) {
@@ -79,27 +98,25 @@ module.exports = function(app, passport, mongoose) {
 	function user_data(callback) {
 		nbAccount.find(function (err, data) {
 			if (err) throw err;
-			var account_info = [];
-			for(i = 0; i < data.length; i++)
-				account_info[i] = [data[i].local.email, data[i].info_user.firstname, data[i].info_user.lastname];
-			callback(account_info);
+			console.log(data);
+			callback(data);
 		});
 	};
 
 	app.get('/admin', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
 		account(function (response) {
-			user_data(function(info) {
+			user_data(function(account) {
 				res.render('admin', {
 					isAuthenticated: req.isAuthenticated(),
 					user: req.user,
 					nbUser: response,
-					account: info			
+					account,			
 				});
 			});
 		});
 	});
 
-	//***=================   PROFILE   =================***//
+	//***=================   CONTACT PAGE   =================***//
 
 	app.get('/contact', function(req, res) {
 		res.render('contact', {

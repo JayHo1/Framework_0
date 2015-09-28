@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Edit Page</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+	</head>
+	<body id="edit-page">
+		<% include header_navbar %>
+		<section>
+			<div class="edit-info-update">
+				<form method="POST">
+					<input type="text" value= "<%= firstname %>" name="firstname">
+					<input type="text" value= "<%= lastname %>" name="lastname">
+					<button type="submit">Save</button>
+				</form>
+			</div>
+		</section>
+	</body>
+</html>

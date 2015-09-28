@@ -26,25 +26,18 @@
 						<div class="admin-text-list-user">
 							<table style="width:100%">
 								<tr>
+									<th></th>
 									<th>Email</th>
 									<th>First Name</th>
 									<th>Last Name</th>
 								</tr>
-								<tr>
-									<td><%= account[0][0] %></td>
-									<td><%= account[0][1] %></td> 
-									<td><%= account[0][2] %></td>
-								</tr>
-								<tr>
-							   		<td><%= account[1][0] %></td>
-									<td><%= account[1][1] %></td> 
-									<td><%= account[1][2] %></td>
-								</tr>
-								<tr>
-									<td><%= account[2][0] %></td>
-									<td><%= account[2][1] %></td> 
-									<td><%= account[2][2] %></td>
-								</tr>
+								<% account.forEach(function(user) { %>
+									<tr>
+										<td><a href="/admin/user/<%= user._id %>">Edit</a></td>
+										<td><%= user.info_user.firstname %></td>
+										<td><%= user.info_user.lastname %></td>
+									</tr>
+								<% }); %>
 							</table>
 						</div>
 					</div>
