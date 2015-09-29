@@ -14,6 +14,7 @@
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        <a href="/edit-page" class="btn btn-default btn-sm">Edit</a>
         <% if (user.permissions.super_saiyen) { %>
             <a href="/admin" class="btn btn-default btn-sm">Super Admin</a>
         <% } %>
@@ -29,12 +30,14 @@
                 <h3><span class="fa fa-user"></span> Local</h3>
 
                     <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>firstname</strong>: <%= user.info_user.firstname %><br>
-                        <strong>lastname</strong>: <%= user.info_user.lastname %><br>
-                        <strong>bday</strong>: <%= user.info_user.birthday %><br>
-                        <strong>superpower</strong>: <%= user.permissions %><br>
+                        <strong>Id</strong>: <%= user._id %><br>
+                        <strong>Email</strong>: <%= user.local.email %><br>
+                        <strong>First Name</strong>: <%= user.info_user.firstname %><br>
+                        <strong>Last Name</strong>: <%= user.info_user.lastname %><br>
+                        <strong>Birthday</strong>: <%= user.info_user.birthday %><br>
+                        <strong>Super Saiyen</strong>: <%= user.permissions.super_saiyen %><br>
+                        <strong>Ninja</strong>: <%= user.permissions.ninja %><br>
+                        <strong>Mouche</strong>: <%= user.permissions.pathetic_human %><br>
                     </p>
 
             </div>

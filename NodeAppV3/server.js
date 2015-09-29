@@ -3,11 +3,13 @@
 
 
 var fs 				= require('fs');
+var path 			= require('path');
 var https			= require('https');
 var express 		= require('express');
 var bodyParser 		= require('body-parser');
 var cookieParser 	= require('cookie-parser');
 var morgan       	= require('morgan');
+var io				= require('socket.io');
 
 var app 			= express();
 
@@ -27,10 +29,14 @@ mongoose.connect(configDB.url);
 
 //***=================   SERVER HTTPS  =================***//
 
-// var serverHttps		= https.createServer({ 
-// 	cert: fs.readFileSync(__dirname + '/ssl/server.crt'),
-// 	key: fs.readFileSync(__dirname + '/ssl/server.key'),
-// }, app);
+var sslOptions = {
+	key: fs.readFileSync('./ssl/server.key'),
+	cert: fs.readFileSync('./ssl/server.crt'),
+	ca: fs.readFileSync('./ssl/ca.crt'),
+	requestCert: true,
+	rejectUnauthorized: false,
+	passphrase: "password"
+}
 
 //***=================   AUTHENTICATION   =================***//
 
@@ -60,15 +66,16 @@ require('./routes/routes')(app, passport, mongoose);
 require('./config/passport')(passport);
 
 app.use(morgan('dev'));
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname + '/public')))
+app.use('/admin/user', express.static(path.join(__dirname + '/public')))
 
 
 //***=================   PORT   =================***//
 
 var port = process.env.PORT || 3000
 
-app.listen(port, function () {
-	console.log('http://127.0.0.1:' + port + '/');
+https.createServer(sslOptions, app).listen(port, function () {
+	console.log('https://127.0.0.1:' + port + '/');
 });
 
 //***=================   DEBUG   =================***//

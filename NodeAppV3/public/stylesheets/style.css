@@ -11,6 +11,17 @@
 	background-repeat: no-repeat;
 }
 
+
+/***   Admin Edit Page   ***/
+
+.admin-select {
+	width: 50%;
+	outline: 0;
+	font-size: 18px;
+	border: 1px solid grey;
+	background-color: white;
+}
+
 /***   Navbar-index   ***/
 
 .home-nav {
@@ -241,7 +252,7 @@
     color:    white;
 }
 
-textarea:focus, input:focus{
+.contact-message-input textarea:focus input:focus{
 	width: 500px;
     outline: 0;
 }
@@ -346,11 +357,55 @@ button {
 	color: black;
 }
 
+td {
+	font-size: 18px;
+}
+
+
+/***   Edit User Section   ***/
+
+.edit-page-title {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+	font-weight: bold;
+	position: relative;
+	top: 20px;
+}
+
+.edit-form {
+	font-family: 'Raleway',
+}
+
+.info_field {
+	width: 100%;
+	height: 35px;
+	outline: 0;
+	border: 1px solid;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.edit-page-button {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 100;
+	font-weight: lighter;
+	position: relative;
+	top: 60px;
+}
+
+.edit-page-button a{
+	margin-left: 12px;
+	color: #A0A0A0;
+	float: right;
+}
+
 
 /***   Admin Section List User  ***/
 
 .admin-text-list-user {
-	margin-top: 30px;
+	height: 500px;
+	overflow: auto;
+	margin-top: 50px;
 }
 
 .admin-text-list-user th {
@@ -365,6 +420,32 @@ button {
 	color: white;
 	font-family: 'Raleway';
 	font-weight: lighter;
+}
+
+.admin-remove-button input[type=submit] {
+/*
+	display: none;*/
+		
+}
+
+.admin-remove-button .submit {
+	background-color: black;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding-top: .3em;
+    padding-bottom: .3em;
+}
+
+.admin-profile-edit a{
+	color: white;
+	font-family: 'Montserrat';
+	font-weight: 500px;
+
 }
 
 /*******  Donut Chart ******/

@@ -30,12 +30,21 @@
 									<th>Email</th>
 									<th>First Name</th>
 									<th>Last Name</th>
+									<th>Group</th>
+									<th>Delete</th>
 								</tr>
 								<% account.forEach(function(user) { %>
-									<tr>
-										<td><a href="/admin/user/<%= user._id %>">Edit</a></td>
+									<tr class="admin-profile-board">
+										<td class="admin-profile-edit" ><a href="admin/user/<%= user._id %>">Edit</a></td>
+										<td><%= user.local.email %></td>
 										<td><%= user.info_user.firstname %></td>
 										<td><%= user.info_user.lastname %></td>
+										<td><%= user.groups %></td>
+										<td>
+											<form method="POST" class="admin-remove-button">
+												<button name="id" type="submit" value="<%= user._id %>">&#10006</button>
+											</form>
+										</td>
 									</tr>
 								<% }); %>
 							</table>

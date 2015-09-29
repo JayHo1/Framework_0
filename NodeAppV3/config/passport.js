@@ -19,10 +19,6 @@ module.exports = function(passport, app) {
 	});
 
 
-	//***=================   LOCAL UPDATE  =================***//
-
-	// passport.use('admin-update', newlocalStrategy)
-
 	//***=================   LOCAL SIGN UP   =================***//
 
 
@@ -49,8 +45,10 @@ module.exports = function(passport, app) {
 						newUser.info_user.lastname = req.body.lastName;
 						newUser.info_user.birthday = req.body.bDay;
 
+						newUser.groups = "users";
+
 						newUser.permissions.name = "troll";
-						newUser.permissions.super_saiyen = 1;
+						newUser.permissions.super_saiyen = 0;
 						newUser.permissions.ninja = 0;
 						newUser.permissions.pathetic_human = 1;
 

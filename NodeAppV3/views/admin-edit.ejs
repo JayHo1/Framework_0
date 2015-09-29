@@ -1,20 +1,116 @@
 <!DOCTYPE html>
-<html>
+	<html>
 	<head>
-		<title>Edit Page</title>
+		<title>Update profile</title>
 		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 	</head>
-	<body id="edit-page">
-		<% include header_navbar %>
-		<section>
-			<div class="edit-info-update">
-				<form method="POST">
-					<input type="text" value= "<%= firstname %>" name="firstname">
-					<input type="text" value= "<%= lastname %>" name="lastname">
-					<button type="submit">Save</button>
+	<body id="admin-edit-page">
+		<div class="container">
+			<div class="row">
+				<div class="edit-page-title col-xs-5">
+					<h1>Information User</h1>
+				</div>
+				<div class="edit-page-button col-xs-3 col-xs-offset-4">
+					<a href="/">Home</a>
+					<a href="/logout">Log out</a>
+				</div>
+			</div>
+			<hr />
+			<div class="row edit-info">
+				<form method="POST" class="edit-form">
+					<div class="col-xs-12">
+					 	<br /> 
+						<label>Email:</label> <br />
+						<input type="text" class="info_field" value="<%= user_data.local.email %>" name="email">
+					</div>
+					<div class="col-xs-12">
+					 	<br />
+						<label>First Name:</label> <br />
+						<input type="text" class="info_field" value="<%= user_data.info_user.firstname %>" name="firstname">
+					</div>
+					<div class="col-xs-12">
+						 <br />	
+						<label>Last Name:</label> <br />
+						<input type="text" class="info_field" value="<%= user_data.info_user.lastname %>" name="lastname">
+					</div>
+					<div class="col-xs-12">
+						 <br />
+						<label>Birthday:</label> <br />
+						<input type="text" class="info_field" value="<%= user_data.info_user.birthday %>" name="birthday">
+					</div>
+					<div class="col-xs-12">
+						<br />
+						<button type="submit" class="btn btn-primary">Update</button>
+					</div>
 				</form>
 			</div>
-		</section>
+			<div class="edit-page-title">
+				<h1>Permissions</h1>
+				<hr />
+			</div>
+			<br />
+			<div class="row edit-info">
+				<form method="GET" class="edit-form">
+						<div class="col-xs-12">
+							<br />
+							<select class="admin-select" name="power">
+								<option value="ss">Super_saiyen</option>
+								<option value="nin">Ninja</option>
+								<option value="ph">Pathetic_human</option>
+							</select>
+						</div>
+					<div class="col-xs-12">
+						<br />
+						<select class="admin-select" name="group">
+							<option class="admin-edit-select" value="users">User</option>
+							<option class="admin-edit-select" value="admin">Admin</option>
+						</select>
+					</div>
+					<div class="col-xs-12">
+						<br />
+						<button type="submit" class="btn btn-primary">Update</button>
+					</div>
+				</form>
+			</div>
+			<div class="edit-page-title">
+				<h1>Set Password</h1>
+				<hr />
+			</div>
+			<br />
+			<div class="row edit-info">
+				<form method="POST" class="edit-form">
+					<div class="col-xs-12">
+						<br />
+						<label>Password: </label> <br />
+						<input type="password" class="info_field" name="pw">
+					</div>
+					<div class="col-xs-12">
+						<br />
+						<label>New Password: </label> <br />
+						<input type="password" class="info_field" name="npw">
+					</div>
+					<div class="col-xs-12">
+						<br />
+						<label>Confirm Password: </label> <br />
+						<input type="password" class="info_field" name="cpw">
+					</div>
+					<div class="col-xs-12">
+						<br />
+						<button type="submit" class="btn btn-primary">Update</button>
+					</div>
+				</form>
+			</div>
+			<div class="edit-page-title">
+				<h1>Delete Account</h1>
+				<hr />
+			</div>
+			<form method="POST" class="delete-user">
+				<div class="row col-xs-12">
+					<br />
+					<button type="submit" class="btn btn-danger" name="delete" value="true">Delete</button>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>
