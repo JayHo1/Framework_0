@@ -1,9 +1,59 @@
 
 // configuration routes
-module.exports = function(app, passport, mongoose) {
+module.exports = function(app, passport, nodemailer) {
 
 	var nbAccount = require('../config/models/users');
+
+	//***=================   FUNCTIONS   =================***//
+
+    function countAdmin(callback) {
+		nbAccount.find({ 'permissions.super_saiyen': true}, { 'permissions.super_saiyen': true}).count(
+			function(err, nbAdmin) {
+			if (err) throw err;
+			callback(nbAdmin.toString());
+		});
+	};
+
+	function countUser(callback) {
+		nbAccount.find({ 'permissions.super_saiyen': false}, { 'permissions.super_saiyen': false}).count(
+			function(err, nbUser) {
+			if (err) throw err;
+			callback(nbUser.toString());
+		});
+	}
+
+	function accountAdmin(callback) {
+		nbAccount.find({ 'permissions.pathetic_human': false},
+			function(err, adminData) {
+				if (err) throw err
+				callback(adminData)
+		})
+	}
+
+	function accountUser(callback) {
+		nbAccount.find({ 'permissions.super_saiyen': false}, { 'permissions.super_saiyen': false},
+			function(err, adminUser) {
+				if (err) throw err
+				callback(adminUser)
+		})
+	}
+
+	function account(callback) {
+		nbAccount.count(function(err, nb) {
+			if (err) throw err;
+			callback(nb.toString());
+		});
+	};
+
+	function user_data(callback) {
+		nbAccount.find(function (err, data) {
+			if (err) throw err;
+			callback(data);
+		});
+	};
+
 	//***=================   HOME PAGE   =================***//
+
 	app.get('/', function(req, res) {
 		res.render('index', {
 			isAuthenticated: req.isAuthenticated(),
@@ -66,52 +116,72 @@ module.exports = function(app, passport, mongoose) {
 		});
 	});
 
+
 	app.post('/admin/user/:id', ensureAuthenticated, ensureAdminAuthenticated, function (req, res) {
 		nbAccount.findOne({_id: req.params.id}, function(err, data_user) {
 			if (err) {
 			    err.status = 404;
 			    res.render('404');
 			} 
-			// else if (data_user.validPassword(req.body.pw)) {
-			// 	if (req.body.npw == req.body.cpw) {
-			// 		var newpw = data_user.generateHash(req.body.npw)
-			// 		nbAccount.update({ '_id': data_user._id }, { $set: { local: { email: data_user.local.email, password: newpw }}}, function (err) {
-			// 			if (err) throw err
-			// 			res.redirect('/admin-edit')
-			// 			console.log("success")
-			// 		})
-			// 	}
-			// 	else {
-			// 		console.log("FALSE")
-			// 	}
-			// }
-			else if (req.body.delete == "true") {
-				nbAccount.remove({ '_id': data_user._id }, function (err) {
-					if (err) {
-						err.status = 404;
-			   			res.render('404');
-					}
-					else
-						res.redirect('/admin');
-				})
-			}
-			else if (req.body.power == "ss" || req.body.power == "nin" || req.body.power == "ph") {
-				if (req.body.power == "ss") {
-					nbAccount.update({_id: data_user.id}, { $set: { permissions: { super_saiyen: "true", ninja: "false", pathetic_human: "false" }} })
-				}
-				else if (req.body.power == "nin") {
-					nbAccount.update({_id: data_user.id}, { $set: { permissions: { super_saiyen: "false", ninja: "true", pathetic_human: "false" }} })
-				}
-				else {
-					nbAccount.update({_id: data_user.id}, { $set: { permissions: { super_saiyen: "false", ninja: "false", pathetic_human: "true" }} })
-				}
-			}
-			else if (req.body.group == "users" || req.body.group == "admin") {
-				nbAccount.update({_id: data_user.id}, { $set: {group: req.body.group }})
-			}
 			else {
-				nbAccount.update({_id: req.params.id}, { $set: { info_user: { firstname: req.body.firstname, lastname: req.body.lastname }} })
-			} 
+				if (req.body.power) {
+					if (req.body.power == "ss") {
+						nbAccount.update({'_id': data_user.id}, { $set: { permissions: { super_saiyen: true, ninja: false, pathetic_human: false}} },
+							function (err) {
+								if(err)
+									console.log("FALSE")
+								else
+									console.log("SUCCESS")
+							})
+					}
+					else if (req.body.power == "nin") {
+						nbAccount.update({_id: data_user.id}, { $set: { permissions: { super_saiyen: "false", ninja: "true", pathetic_human: "false" }} },
+							function (err) {
+								if(err)
+									console.log("FALSE")
+								else
+									console.log("SUCCESS")
+							})
+					}
+					else {
+						nbAccount.update({_id: data_user.id}, { $set: { permissions: { super_saiyen: "false", ninja: "false", pathetic_human: "true" }} },
+							function (err) {
+								if(err)
+									console.log("FALSE")
+								else
+									console.log("SUCCESS")
+							})
+					}
+				}
+				if (req.body.firstname) {
+					nbAccount.update({_id: data_user.id}, { $set: { info_user: { firstname: req.body.firstname, lastname: req.body.lastname }} }, 
+						function (err) {
+							if (err) 
+								console.log("FALSE")
+							else 
+								console.log("SUCCESS")
+						})
+				} 
+				if (req.body.group == "users" || req.body.group == "admin") {
+				 	nbAccount.update({_id: data_user.id}, { $set: {groups: req.body.group }},
+				 		function (err) {
+				 			if (err) 
+								console.log("FALSE")
+							else 
+								console.log("SUCCESS")
+				 		})
+				}
+				if (req.body.delete == "true") {
+					nbAccount.remove({ '_id': data_user._id }, function (err) {
+						if (err) {
+							err.status = 404;
+				   			res.render('404');
+						}
+						else
+							res.redirect('/admin');
+					})
+				}
+			}
 		})
 	});
 
@@ -125,7 +195,7 @@ module.exports = function(app, passport, mongoose) {
 					isAuthenticated: req.isAuthenticated(),
 					user: req.user,
 					nbUser: response,
-					account,			
+					account,		
 				});
 			});
 		});
@@ -152,35 +222,38 @@ module.exports = function(app, passport, mongoose) {
 			})
 		}
 
-		else if (req.user.validPassword(req.body.pw)){
-			if (req.body.npw == req.body.cpw) {
-				var newpw = req.user.generateHash(req.body.npw)
-				nbAccount.update({ '_id': req.user._id }, { $set: { local: { email: req.user.local.email, password: newpw }}}, function (err) {
-					if (err) throw err
-					res.redirect('/edit-page')
-					console.log("success")
-				})
-			}
-			else {
-				console.log("FALSE")
-			}
-		}
-		else
-		{
-			nbAccount.update({ 'local.email': req.body.email },
-			{ $set: { info_user: { firstname: req.body.firstname, lastname: req.body.lastname, birthday: req.body.birthday }} },
-			function (err){
-				if (err) {
-					console.log("update error")
+		else {
+			if  (req.body.pw && req.user.validPassword(req.body.pw)){
+				if (req.body.npw == req.body.cpw) {
+					var newpw = req.user.generateHash(req.body.npw)
+					nbAccount.update({ '_id': req.user._id }, { $set: { local: { email: req.user.local.email, password: newpw }}}, function (err) {
+						if (err) throw err
+						res.redirect('/edit-page')
+						console.log("success")
+					})
 				}
 				else {
-					console.log("update success")
+					console.log("FALSE")
 				}
-			})
+			}
+			else
+			{
+				nbAccount.update({ 'local.email': req.body.email },
+				{ $set: { info_user: { firstname: req.body.firstname, lastname: req.body.lastname, birthday: req.body.birthday }} },
+				function (err){
+					if (err) {
+						console.log("update error")
+					}
+					else {
+						console.log("update success")
+					}
+				})
+			}
 		}
 	})
 
 	//***=================   PROFILE   =================***//
+
 
 	app.get('/profile', ensureAuthenticated, function(req, res) {
     	res.render('profile', {
@@ -188,28 +261,20 @@ module.exports = function(app, passport, mongoose) {
     	});
     });
 
-	function account(callback) {
-		nbAccount.count(function(err, nb) {
-			if (err) throw err;
-			callback(nb.toString());
-		});
-	};
-
-	function user_data(callback) {
-		nbAccount.find(function (err, data) {
-			if (err) throw err;
-			callback(data);
-		});
-	};
-
 	app.get('/admin', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
-		account(function (response) {
-			user_data(function(account) {
-				res.render('admin', {
-					isAuthenticated: req.isAuthenticated(),
-					user: req.user,
-					nbUser: response,
-					account,			
+		countUser(function(nbUser) {
+			accountUser(function(userData) {
+				countAdmin(function(nbAdmin) {
+					accountAdmin(function(adminData) {
+						res.render('admin', {
+							isAuthenticated: req.isAuthenticated(),
+							user: req.user,
+							nbUser,
+							userData,
+							nbAdmin,
+							adminData,		
+						});
+					});
 				});
 			});
 		});
@@ -223,6 +288,8 @@ module.exports = function(app, passport, mongoose) {
 			user: req.user
 		});
 	});
+
+	// app.post('/contact', function(req. res) {})
 
     //***=================   LOG OUT   =================***//
 

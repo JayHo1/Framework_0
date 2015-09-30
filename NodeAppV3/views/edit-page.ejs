@@ -13,6 +13,9 @@
 				</div>
 				<div class="edit-page-button col-xs-3 col-xs-offset-4">
 					<a href="/">Home</a>
+					<% if (user.permissions.super_saiyen) { %>
+		            	<a href="/admin">Super Admin</a>
+		       		<% } %>
 					<a href="/logout">Log out</a>
 				</div>
 			</div>
@@ -41,7 +44,7 @@
 					</div>
 					<div class="col-xs-12">
 						<br />
-						<button type="submit" class="btn btn-primary">Update</button>
+						<button type="submit1" class="btn btn-primary">Update</button>
 					</div>
 				</form>
 			</div>
@@ -68,7 +71,7 @@
 					</div>
 					<div class="col-xs-12">
 						<br />
-						<button type="submit" class="btn btn-primary">Update</button>
+						<button type="submit2" class="btn btn-primary">Update</button>
 					</div>
 				</form>
 			</div>

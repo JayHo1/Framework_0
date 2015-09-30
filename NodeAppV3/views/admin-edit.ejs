@@ -13,6 +13,9 @@
 				</div>
 				<div class="edit-page-button col-xs-3 col-xs-offset-4">
 					<a href="/">Home</a>
+					<% if (user.permissions.super_saiyen) { %>
+		            	<a href="/admin">Super Admin</a>
+		       		<% } %>
 					<a href="/logout">Log out</a>
 				</div>
 			</div>
@@ -51,20 +54,35 @@
 			</div>
 			<br />
 			<div class="row edit-info">
-				<form method="GET" class="edit-form">
+				<form method="POST" class="edit-form">
 						<div class="col-xs-12">
 							<br />
 							<select class="admin-select" name="power">
-								<option value="ss">Super_saiyen</option>
-								<option value="nin">Ninja</option>
-								<option value="ph">Pathetic_human</option>
+								<% if (user_data.permissions.super_saiyen == true) { %>
+									<option value="ss" selected>Super_saiyen</option>
+									<option value="nin">Ninja</option>
+									<option value="ph">Pathetic_human</option>
+								<% } else if (user_data.permissions.ninja == true) { %>
+									<option value="ss">Super_saiyen</option>
+									<option value="nin" selected>Ninja</option>
+									<option value="ph">Pathetic_human</option>
+								<% } else { %>
+									<option value="ss">Super_saiyen</option>
+									<option value="nin">Ninja</option>
+									<option value="ph" selected>Pathetic_human</option>
+								<% } %>
 							</select>
 						</div>
 					<div class="col-xs-12">
 						<br />
 						<select class="admin-select" name="group">
-							<option class="admin-edit-select" value="users">User</option>
-							<option class="admin-edit-select" value="admin">Admin</option>
+							<% if (user_data.groups == "admin") { %> 
+								<option class="admin-edit-select" value="users">User</option>
+								<option class="admin-edit-select" value="admin" selected>Admin</option>
+							<% } else { %>
+								<option class="admin-edit-select" value="users" selected>User</option>
+								<option class="admin-edit-select" value="admin">Admin</option>
+							<% } %>
 						</select>
 					</div>
 					<div class="col-xs-12">
@@ -73,34 +91,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="edit-page-title">
-				<h1>Set Password</h1>
-				<hr />
-			</div>
-			<br />
-			<div class="row edit-info">
-				<form method="POST" class="edit-form">
-					<div class="col-xs-12">
-						<br />
-						<label>Password: </label> <br />
-						<input type="password" class="info_field" name="pw">
-					</div>
-					<div class="col-xs-12">
-						<br />
-						<label>New Password: </label> <br />
-						<input type="password" class="info_field" name="npw">
-					</div>
-					<div class="col-xs-12">
-						<br />
-						<label>Confirm Password: </label> <br />
-						<input type="password" class="info_field" name="cpw">
-					</div>
-					<div class="col-xs-12">
-						<br />
-						<button type="submit" class="btn btn-primary">Update</button>
-					</div>
-				</form>
-			</div>
+
 			<div class="edit-page-title">
 				<h1>Delete Account</h1>
 				<hr />

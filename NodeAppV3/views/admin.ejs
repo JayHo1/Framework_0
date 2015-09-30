@@ -19,7 +19,7 @@
 								<h4>Users</h4>
 							</div>
 							<div class="col-lg-4 col-lg-offset-2 admin-text-stat-user"> 
-								<h3>3</h3>
+								<h3><%= nbAdmin %></h3>
 								<h4>Admin</h4>
 							</div>
 						</div>
@@ -33,20 +33,34 @@
 									<th>Group</th>
 									<th>Delete</th>
 								</tr>
-								<% account.forEach(function(user) { %>
-									<tr class="admin-profile-board">
-										<td class="admin-profile-edit" ><a href="admin/user/<%= user._id %>">Edit</a></td>
-										<td><%= user.local.email %></td>
-										<td><%= user.info_user.firstname %></td>
-										<td><%= user.info_user.lastname %></td>
-										<td><%= user.groups %></td>
-										<td>
-											<form method="POST" class="admin-remove-button">
-												<button name="id" type="submit" value="<%= user._id %>">&#10006</button>
-											</form>
-										</td>
-									</tr>
-								<% }); %>
+							<% adminData.forEach(function(adminData) { %>
+								<tr class="admin-profile-board">
+									<td class="admin-profile-edit" ><a href="admin/user/<%= adminData._id %>">Edit</a></td>
+									<td><%= adminData.local.email %></td>
+									<td><%= adminData.info_user.firstname %></td>
+									<td><%= adminData.info_user.lastname %></td>
+									<td><%= adminData.groups %></td>
+									<td>
+										<form method="POST" class="admin-remove-button">
+											<button name="id" type="submit" value="<%= adminData._id %>">&#10006</button>
+										</form>
+									</td>
+								</tr>
+							<% }) %>
+							<% userData.forEach(function(userData) { %>
+								<tr class="admin-profile-board">
+									<td class="admin-profile-edit" ><a href="admin/user/<%= userData._id %>">Edit</a></td>
+									<td><%= userData.local.email %></td>
+									<td><%= userData.info_user.firstname %></td>
+									<td><%= userData.info_user.lastname %></td>
+									<td><%= userData.groups %></td>
+									<td>
+										<form method="POST" class="admin-remove-button">
+											<button name="id" type="submit" value="<%= userData._id %>">&#10006</button>
+										</form>
+									</td>
+								</tr>
+							<% }) %>
 							</table>
 						</div>
 					</div>
@@ -75,11 +89,11 @@
 						<br />
 						<div class="col-lg-offset-2 admin-dashboard-area dashboard-item">
 						    <h2>Troll</h2>
-						    <svg width="160" height="160" xmlns="http://www.w3.org/2000/svg">
-						     <g>
-						      <title>Layer 3</title>
-						      <circle id="circle" class="circle_animation_troll" r="69.85699" cy="81" cx="81" stroke-width="18" stroke="#446CB3" fill="none"/>
-						     </g>
+						    <svg width="170" height="160" xmlns="http://www.w3.org/2000/svg">
+							    <g>
+								    <title>Layer 3</title>
+								    <circle id="circle" class="circle_animation_troll" r="69.85699" cy="81" cx="81" stroke-width="18" stroke="#446CB3" fill="none"/>
+							    </g>
 						    </svg>
 						</div>
 					</div>

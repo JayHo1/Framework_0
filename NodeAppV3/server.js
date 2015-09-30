@@ -10,6 +10,7 @@ var bodyParser 		= require('body-parser');
 var cookieParser 	= require('cookie-parser');
 var morgan       	= require('morgan');
 var io				= require('socket.io');
+var nodemailer 		= require('nodemailer');
 
 var app 			= express();
 
@@ -21,11 +22,10 @@ app.set('view engine', 'ejs');
 
 var mongoose 		= require('mongoose');
 var flash   		= require('connect-flash');
-var configDB 		= require('./config/database.js');
 
 //configuration//
-mongoose.connect(configDB.url); 
-
+var connect1 		= mongoose.connect('mongodb://localhost/user_data');
+// var connect2		= mongoose.createConnection('mongodb://localhost/mailbox');
 
 //***=================   SERVER HTTPS  =================***//
 
@@ -62,7 +62,7 @@ app.use(passport.session());
 //***=================   ROUTES   =================***//
 
 
-require('./routes/routes')(app, passport, mongoose);
+require('./routes/routes')(app, passport, nodemailer);
 require('./config/passport')(passport);
 
 app.use(morgan('dev'));
