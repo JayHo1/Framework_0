@@ -7,15 +7,18 @@ module.exports = function(app, passport, nodemailer) {
 	//***=================   FUNCTIONS   =================***//
 
     function countAdmin(callback) {
-		nbAccount.find({ 'permissions.super_saiyen': true}, { 'permissions.super_saiyen': true}).count(
+		nbAccount.find({ 'permissions.super_saiyen': true}).count(
 			function(err, nbAdmin) {
-			if (err) throw err;
-			callback(nbAdmin.toString());
+			if (err) throw err
+			nbAccount.find({ 'permissions.ninja': true}).count( function(err, nbAdmin2) {
+				if (err) throw err
+					callback((nbAdmin + nbAdmin2).toString())
+			})
 		});
 	};
 
 	function countUser(callback) {
-		nbAccount.find({ 'permissions.super_saiyen': false}, { 'permissions.super_saiyen': false}).count(
+		nbAccount.find({ 'permissions.pathetic_human': true}).count(
 			function(err, nbUser) {
 			if (err) throw err;
 			callback(nbUser.toString());
@@ -23,7 +26,7 @@ module.exports = function(app, passport, nodemailer) {
 	}
 
 	function accountAdmin(callback) {
-		nbAccount.find({ 'permissions.pathetic_human': false},
+		nbAccount.find({'permissions.super_saiyen': true},
 			function(err, adminData) {
 				if (err) throw err
 				callback(adminData)
@@ -31,7 +34,7 @@ module.exports = function(app, passport, nodemailer) {
 	}
 
 	function accountUser(callback) {
-		nbAccount.find({ 'permissions.super_saiyen': false}, { 'permissions.super_saiyen': false},
+		nbAccount.find({ 'permissions.pathetic_human': true},
 			function(err, adminUser) {
 				if (err) throw err
 				callback(adminUser)
@@ -185,20 +188,45 @@ module.exports = function(app, passport, nodemailer) {
 		})
 	});
 
+	app.get('/admin', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
+		countUser(function(nbUser) {
+			accountUser(function(userData) {
+				countAdmin(function(nbAdmin) {
+					accountAdmin(function(adminData) {
+						res.render('admin', {
+							isAuthenticated: req.isAuthenticated(),
+							user: req.user,
+							nbUser,
+							userData,
+							nbAdmin,
+							adminData,	
+						});
+					});
+				});
+			});
+		});
+	});
+
 	app.post('/admin', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
 		nbAccount.remove({ '_id': req.body.id }, function (err) {
 			if (err) throw err;
 			else {
-				account(function (response) {
-				user_data(function(account) {
-				res.render('admin', {
-					isAuthenticated: req.isAuthenticated(),
-					user: req.user,
-					nbUser: response,
-					account,		
+				countUser(function(nbUser) {
+					accountUser(function(userData) {
+						countAdmin(function(nbAdmin) {
+							accountAdmin(function(adminData) {
+								res.render('admin', {
+									isAuthenticated: req.isAuthenticated(),
+									user: req.user,
+									nbUser,
+									userData,
+									nbAdmin,
+									adminData,		
+								});
+							});
+						});
+					});
 				});
-			});
-		});
 			};
 		});
 	});
@@ -252,6 +280,7 @@ module.exports = function(app, passport, nodemailer) {
 		}
 	})
 
+
 	//***=================   PROFILE   =================***//
 
 
@@ -261,24 +290,6 @@ module.exports = function(app, passport, nodemailer) {
     	});
     });
 
-	app.get('/admin', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
-		countUser(function(nbUser) {
-			accountUser(function(userData) {
-				countAdmin(function(nbAdmin) {
-					accountAdmin(function(adminData) {
-						res.render('admin', {
-							isAuthenticated: req.isAuthenticated(),
-							user: req.user,
-							nbUser,
-							userData,
-							nbAdmin,
-							adminData,		
-						});
-					});
-				});
-			});
-		});
-	});
 
 	//***=================   CONTACT PAGE   =================***//
 
