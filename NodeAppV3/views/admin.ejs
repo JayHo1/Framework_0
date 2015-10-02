@@ -47,6 +47,20 @@
 									</td>
 								</tr>
 							<% }) %>
+							<% dataNinja.forEach(function(dataNinja) { %>
+								<tr class="admin-profile-board">
+									<td class="admin-profile-edit" ><a href="admin/user/<%= dataNinja._id %>">Edit</a></td>
+									<td><%= dataNinja.local.email %></td>
+									<td><%= dataNinja.info_user.firstname %></td>
+									<td><%= dataNinja.info_user.lastname %></td>
+									<td><%= dataNinja.groups %></td>
+									<td>
+										<form method="POST" class="admin-remove-button">
+											<button name="id" type="submit" value="<%= adminData._id %>">&#10006</button>
+										</form>
+									</td>
+								</tr>
+							<% }) %>
 							<% userData.forEach(function(userData) { %>
 								<tr class="admin-profile-board">
 									<td class="admin-profile-edit" ><a href="admin/user/<%= userData._id %>">Edit</a></td>

@@ -63,6 +63,7 @@ app.use(passport.session());
 
 
 require('./routes/routes')(app, passport, nodemailer);
+require('./config/ticket')(app);
 require('./config/passport')(passport);
 
 app.use(morgan('dev'));

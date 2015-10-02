@@ -16,4 +16,4 @@ var mailboxSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('Mailbox', userSchema);
+module.exports = mongoose.model('Mailbox', mailboxSchema);

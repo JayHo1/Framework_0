@@ -6,13 +6,25 @@ module.exports = function(app, passport, nodemailer) {
 
 	//***=================   FUNCTIONS   =================***//
 
+	function countNinja(callback) {
+		nbAccount.find({ 'permissions.ninja': true}).count(
+			function(err, nbNinja) {
+				if (err) throw err 
+				nbAccount.find({'permissions.ninja': true},
+					function(err, dataNinja) {
+						if (err) throw err
+						callback(nbNinja.toString(), dataNinja)
+			})
+		})
+	}
+
     function countAdmin(callback) {
 		nbAccount.find({ 'permissions.super_saiyen': true}).count(
 			function(err, nbAdmin) {
 			if (err) throw err
 			nbAccount.find({ 'permissions.ninja': true}).count( function(err, nbAdmin2) {
 				if (err) throw err
-					callback((nbAdmin + nbAdmin2).toString())
+				callback((nbAdmin + nbAdmin2).toString())
 			})
 		});
 	};
@@ -88,18 +100,19 @@ module.exports = function(app, passport, nodemailer) {
 
 	//***=================   SIGN UP PAGE   =================***//
 
-	app.get('/signup', function(req, res) {
-		res.render('signup', { message: req.flash('signupMessage') })
-	});
+		app.get('/signup', function(req, res) {
+			res.render('signup', { message: req.flash('signupMessage') })
+		});
 
-	// process the signup form
-    // app.post('/signup', do all our passport stuff here);
+		// process the signup form
+	    // app.post('/signup', do all our passport stuff here);
 
-    app.post('/signup', passport.authenticate('local-signup', {
-    	successRedirect: '/profile',
-    	failureRedirect: '/signup',
-    	failureFlash: true
-    }));
+	    app.post('/signup', passport.authenticate('local-signup', {
+	    	successRedirect: '/profile',
+	    	failureRedirect: '/signup',
+	    	failureFlash: true
+	    }));
+
 
     //***=================   UPDATE ADMIN PAGE   =================***//
 
@@ -193,13 +206,17 @@ module.exports = function(app, passport, nodemailer) {
 			accountUser(function(userData) {
 				countAdmin(function(nbAdmin) {
 					accountAdmin(function(adminData) {
-						res.render('admin', {
-							isAuthenticated: req.isAuthenticated(),
-							user: req.user,
-							nbUser,
-							userData,
-							nbAdmin,
-							adminData,	
+						countNinja(function(nbNinja, dataNinja) {
+							res.render('admin', {
+								isAuthenticated: req.isAuthenticated(),
+								user: req.user,
+								nbUser,
+								userData,
+								nbAdmin,
+								adminData,	
+								nbNinja,
+								dataNinja
+							});
 						});
 					});
 				});
@@ -215,14 +232,18 @@ module.exports = function(app, passport, nodemailer) {
 					accountUser(function(userData) {
 						countAdmin(function(nbAdmin) {
 							accountAdmin(function(adminData) {
-								res.render('admin', {
-									isAuthenticated: req.isAuthenticated(),
-									user: req.user,
-									nbUser,
-									userData,
-									nbAdmin,
-									adminData,		
-								});
+								countNinja(function(nbNinja, dataNinja) {
+									res.render('admin', {
+										isAuthenticated: req.isAuthenticated(),
+										user: req.user,
+										nbUser,
+										userData,
+										nbAdmin,
+										adminData,
+										nbNinja,
+										dataNinja
+									});
+								})
 							});
 						});
 					});
