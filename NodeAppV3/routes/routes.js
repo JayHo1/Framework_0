@@ -1,6 +1,6 @@
 
 // configuration routes
-module.exports = function(app, passport, nodemailer) {
+module.exports = function(app, passport) {
 
 	var nbAccount = require('../config/models/users');
 
@@ -311,6 +311,13 @@ module.exports = function(app, passport, nodemailer) {
     	});
     });
 
+	//***=================   MAILBOX PAGE   =================***//
+
+	app.get('/mailbox', ensureAuthenticated, ensureAdminAuthenticated, function(req, res) {
+		res.render('mailbox', {
+			user:req.user
+		})
+	})
 
 	//***=================   CONTACT PAGE   =================***//
 

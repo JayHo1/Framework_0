@@ -34,7 +34,11 @@ module.exports = function(passport) {
 						return done(err);
 					if (user) {
 						return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-					} else {
+					}
+					if (email.indexOf("@") == -1) {
+						return done(null, false, req.flash('signupMessage', 'That email is not valid.'));
+					} 
+					else {
 
 						var newUser = new User();
 

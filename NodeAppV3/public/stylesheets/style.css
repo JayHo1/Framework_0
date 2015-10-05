@@ -1,3 +1,4 @@
+
 /***   Header   ***/
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,200,100,800);
@@ -9,6 +10,10 @@
 	background-position: center;
 	background-size: 100% 1300px;
 	background-repeat: no-repeat;
+}
+
+li {
+	list-style-type: none;
 }
 
 
@@ -238,7 +243,7 @@
 
 #contact-page {
 
-	background-size: 100% 100%;
+	width: 100%;
 	overflow-x: hidden;
 	background-image: url("../images/bg_contact_page.jpg");
 	background-position: cover;
@@ -326,6 +331,11 @@ button {
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 5px; 
 		margin-bottom: 30px;
+	}
+
+	#contact-page {
+
+		background-size: 100% 100%;
 	}
 
 	.contact-message-input {
@@ -466,6 +476,66 @@ td {
 	font-weight: 500px;
 
 }
+
+/***  Mailbox  ***/
+
+.mailbox-platform {
+	margin-top: 50px;
+}
+
+.mailbox-inbox-nav ul {
+	padding-left: 0;
+}
+
+.options-elem {
+	transition: all 0.5s ease;
+	height: 50px;
+	border-top: 1px solid grey;
+	text-align: center;
+}
+
+.options-elem:hover {
+	background-color: #c1c1c1;
+}
+
+.mailbox-inbox-options a{
+	position: relative;
+	top: 15px;
+}
+
+.mailbox-form {
+	height: 50px;
+	border-bottom: 1px solid black;
+}
+
+.mailbox-form label {
+	position: relative;
+	top: 20px;
+}
+
+.mailbox-form input {
+	position: relative;
+	top: 20px;
+}
+
+.mailbox-input {
+	border: none;
+	outline: 0;
+}
+
+.mailbox-textarea {
+	margin-top: 20px;
+}
+
+.sendmail-button {
+	margin: 10px;
+	float: right;
+}
+
+.mailbox-textarea {
+	outline: 0;
+}
+
 
 /*******  Donut Chart ******/
 

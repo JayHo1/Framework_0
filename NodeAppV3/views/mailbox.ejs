@@ -2,11 +2,55 @@
 <html>
 <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body        { padding-top:80px; word-wrap:break-word; }
-    </style>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
 </head>
-<body>
+<body id="mailbox">
+	<div class="container">
+		<div class="row mailbox-header">
+			<div class="edit-page-title col-xs-5">
+				<h1>Mailbox</h1>
+			</div>
+			<div class="edit-page-button col-xs-3 col-xs-offset-4">
+				<a href="/">Home</a>
+				<% if (user.permissions.super_saiyen) { %>
+	            	<a href="/admin">Super Admin</a>
+	       		<% } %>
+				<a href="/logout">Log out</a>
+			</div>
+		</div>
+		<hr />
+		<div class="row mailbox-platform">
+			<nav class="col-lg-3 mailbox-inbox-nav">
+				<ul class="mailbox-inbox-options">
+					<li class="options-elem" class="active" ><a class="options-elem-txt" href="#">New Mail</a></li>
+					<li class="options-elem"><a class="options-elem-txt" href="#">Inbox</a></li>
+					<li class="options-elem"><a class="options-elem-txt" href="#">Sent</a></li>
+					<li class="options-elem"><a class="options-elem-txt" href="#">Drafts</a></li>
+					<li class="options-elem"><a class="options-elem-txt" href="#">Trash</a></li>
+				</ul>
+			</nav>
+			<div class="col-lg-9 mailbox-inbox-windows row">
+				<form method="POST" class="mailbox-newmail">
+					<div class="col-xs-12 mailbox-form">
+						<label for="to">To:</label>
+						<input type="text" class="mailbox-input" name="mail" size="100%">
+					</div>
+					<br />
+					<br />
+					<div class="col-xs-12 mailbox-form">
+						<label for="subject">Subject:</label>
+						<input type="text" class="mailbox-input" name="subject" size="100%">
+					</div>
+					<textarea class="col-xs-12 mailbox-textarea" name="message" rows="20" cols="110">
+							
+					</textarea>
+					<button type="submit" class="btn btn-default sendmail-button"> Send </button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 </body>

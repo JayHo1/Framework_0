@@ -9,7 +9,6 @@ var express 		= require('express');
 var bodyParser 		= require('body-parser');
 var cookieParser 	= require('cookie-parser');
 var morgan       	= require('morgan');
-var io				= require('socket.io');
 var nodemailer 		= require('nodemailer');
 
 var app 			= express();
@@ -62,10 +61,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//***=================   ROUTES   =================***//
+//***=================   ROUTES MIDDLEWARES  =================***//
 
 
-require('./routes/routes')(app, passport, nodemailer);
+require('./routes/routes')(app, passport);
+require('./routes/mailer')(app, nodemailer);
 require('./config/passport')(passport);
 require('./config/ticket')(app);
 
