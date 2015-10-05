@@ -24,8 +24,11 @@ var mongoose 		= require('mongoose');
 var flash   		= require('connect-flash');
 
 //configuration//
-var connect1 		= mongoose.connect('mongodb://localhost/user_data');
-// var connect2		= mongoose.createConnection('mongodb://localhost/mailbox');
+var connect1 		= mongoose.createConnection('mongodb://localhost/user_data');
+var connect2		= mongoose.createConnection('mongodb://localhost/mailbox');
+
+require('./config/models/users')(connect1);
+require('./config/models/mailbox')(connect2);
 
 //***=================   SERVER HTTPS  =================***//
 
@@ -63,8 +66,8 @@ app.use(passport.session());
 
 
 require('./routes/routes')(app, passport, nodemailer);
-require('./config/ticket')(app);
 require('./config/passport')(passport);
+require('./config/ticket')(app);
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname + '/public')))

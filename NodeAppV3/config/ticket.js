@@ -1,36 +1,27 @@
 
+// configuration of mailbox database
 
-var mailbox 			= require('./models/mailbox');
+var Mailbox 			= require('./models/mailbox');
 
 module.exports = function(app) {
 
-	function getMail(callback, function(res, req) { {
-
-		var newMailbox = new mailbox()
-
-		console.log(req.body.name)
-		console.log(req.body.email)
-		console.log(req.body.phonenumber)
-		console.log(req.body.message)
-		newMailbox.Name = req.body.name
-		newMailbox.Email = req.body.email
-		newMailbox.PhoneNumber = req.body.phonenumber
-		newMailbox.Message = req.body.message
-		newMailbox.save(function(err, done) {
-			if (err) throw err;
-			console.log(done)
-			callback(done)
-		});
-		})
-	}
-
 	app.post('/contact', function(req, res) {
-		getMail(function(data) {
-			console.log(data);
-			res.render('contact', {
+		var mail = new Mailbox({
+
+			name: req.body.name,
+			email: req.body.email,
+			phonenumber: req.body.phonenumber,
+			message: req.body.message,
+
+		})
+		mail.save(function(err, mail) {
+			if (err) console.log('error saving')
+			else console.log('message saved !')
+		})
+	  	req.flash('info', 'Flash is back!')
+		res.render('contact', {
 				isAuthenticated: req.isAuthenticated(),
-				user: req.user
+				user: req.user,
 			})
 		})
-	})
 }

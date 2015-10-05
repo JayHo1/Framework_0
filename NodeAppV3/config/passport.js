@@ -5,7 +5,7 @@ var localStrategy 	= require('passport-local').Strategy;
 var passportHttp 	= require('passport-http');
 var User 			= require('./models/users');
 
-module.exports = function(passport, app) {
+module.exports = function(passport) {
 
 	passport.serializeUser(function(user, done) {
 	done(null, user.id);

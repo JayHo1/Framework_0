@@ -317,7 +317,8 @@ module.exports = function(app, passport, nodemailer) {
 	app.get('/contact', function(req, res) {
 		res.render('contact', {
 			isAuthenticated: req.isAuthenticated(),
-			user: req.user
+			user: req.user,
+			message: req.flash('info')
 		});
 	});
 

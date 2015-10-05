@@ -2,18 +2,21 @@
 // Configuration Mailbox Schema
 var mongoose 		= require('mongoose')
 
-var mailboxSchema = mongoose.Schema({
+module.exports = function(connect2) {
 
-	Name: { Type: String, default: '' },
+	var mailboxSchema = mongoose.Schema({
 
-	Email: { Type: String, default: ''},
+		name: { type: String, default: ''},
 
-	PhoneNumber: { Type: String, default: ''},
+		email: { type: String, default: ''},
 
-	Message: { Type: String, default: ''},
+		phonenumber: { type: String, default: ''},
 
-	timeCreated: { type: Date, default: Date.now },
+		message: { type: String, default: ''},
 
-})
+		timeCreated: { type: Date, default: Date.now },
 
-module.exports = mongoose.model('Mailbox', mailboxSchema);
+	})
+
+	module.exports = connect2.model('Mailbox', mailboxSchema);
+}
